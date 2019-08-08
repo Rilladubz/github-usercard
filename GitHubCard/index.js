@@ -3,6 +3,16 @@
            https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/rilladubz')
+.then((response) => {
+  UserCard(response.data)
+  console.log(response);
+})
+.catch( err => {
+  // deal with the error in here
+  console.log('Sorry but that did not work', err);
+})
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -25,6 +35,68 @@
 */
 
 const followersArray = [];
+
+
+function UserCard (data){
+  // Element creation
+  const newCard = document.createElement('div');
+
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const actualName = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const gitHubAd = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  // Component Structure
+    newCard.appendChild(userImg);
+    newCard.appendChild(cardInfo);
+
+    cardInfo.appendChild(actualName);
+    cardInfo.appendChild(userName)
+    cardInfo.appendChild(location);
+    cardInfo.appendChild(profile);
+    
+    cardInfo.appendChild(followers);
+    cardInfo.appendChild(following);
+    cardInfo.appendChild(bio);
+  
+
+
+    // Add Classes
+    newCard.classList.add('card');
+    cardInfo.classList.add('card-info');
+    actualName.classList.add('name');
+    userName.classList.add('username');
+
+    // attributes 
+    gitHubAd.setAttribute('href', data.html_url);
+
+    // Add Content
+    userImg.src = data.avatar_url;
+    actualName.textContent = data.name;
+    userName.textContent = data.login;
+    profile.textContent = 'Profile:';
+    profile.appendChild(gitHubAd);
+    gitHubAd.textContent = data.html_url;
+    location.textContent = `Location: ${data.location}`;
+    followers.textContent = `Followers: ${data.followers}`;
+    following.textContent = `Following: ${data.followers}`;
+    bio.textContent = `Bio: ${data.bio}`;
+
+    console.log('IN CONSOLE:', data);
+
+    let entryPoint = document.querySelector('.cards');
+    entryPoint.appendChild(newCard); 
+
+  return newCard;
+}
+
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
