@@ -54,28 +54,41 @@ function UserCard (data){
 
   // Component Structure
     newCard.appendChild(userImg);
-    userImg.appendChild(cardInfo);
-    cardInfo.appendChild(actualName);
-    actualName.appendChild(userName);
-    userName.appendChild(location);
-    location.appendChild(profile);
+    newCard.appendChild(cardInfo);
 
-    profile.appendChild(gitHubAd);
-    gitHubAd.appendChild(followers);
-    followers.appendChild(following); 
-    following.appendChild(bio);
+    cardInfo.appendChild(actualName);
+    cardInfo.appendChild(userName)
+    cardInfo.appendChild(location);
+    cardInfo.appendChild(profile);
+    
+    cardInfo.appendChild(followers);
+    cardInfo.appendChild(following);
+    cardInfo.appendChild(bio);
+  
+
 
     // Add Classes
-    // newCard.classList.add('card');
+    newCard.classList.add('card');
     cardInfo.classList.add('card-info');
     actualName.classList.add('name');
-    // userName.classList.add('username');
+    userName.classList.add('username');
 
     // attributes 
-    gitHubAd.setAttribute('href', '{address to users github page}');
+    gitHubAd.setAttribute('href', data.html_url);
 
     // Add Content
-    // userImg.src = data.avatar_url;
+    userImg.src = data.avatar_url;
+    actualName.textContent = data.name;
+    userName.textContent = data.login;
+    profile.textContent = 'Profile:';
+    profile.appendChild(gitHubAd);
+    gitHubAd.textContent = data.html_url;
+    location.textContent = `Location: ${data.location}`;
+    followers.textContent = `Followers: ${data.followers}`;
+    following.textContent = `Following: ${data.followers}`;
+    bio.textContent = `Bio: ${data.bio}`;
+
+    console.log('IN CONSOLE:', data);
 
     let entryPoint = document.querySelector('.cards');
     entryPoint.appendChild(newCard); 
